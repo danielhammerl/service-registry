@@ -1,0 +1,16 @@
+[Unit]
+Description=Service Registry
+
+[Service]
+TasksMax=infinity
+User=webservices
+RestartSec=90
+StartLimitBurst=5
+Restart=always
+Environment="NODE_ENV=production"
+Type=simple
+WorkingDirectory=/usr/local/bin/service-registry
+ExecStart=/usr/bin/node /usr/local/bin/service-registry/index.js
+
+[Install]
+WantedBy=multi-user.target
