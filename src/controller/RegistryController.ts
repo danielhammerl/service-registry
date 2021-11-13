@@ -4,7 +4,7 @@ import { log, ValidationException } from '@danielhammerl/nodejs-service-framewor
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('', (req, res) => {
   log('info', 'Some service tries to register...');
   try {
     RegisteredServiceShape.validateSync(req.body);

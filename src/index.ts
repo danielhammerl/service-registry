@@ -6,6 +6,6 @@ InitApplication({
   connectToServiceRegistry: false,
   // eslint-disable-next-line require-await
   beforeStartMethod: async (app: App): Promise<void> => {
-    app.use('/registry', RegistryController);
+    app.use('/register', RegistryController);
   },
 });
