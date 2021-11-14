@@ -1,10 +1,12 @@
-import { App, InitApplication } from '@danielhammerl/nodejs-service-framework';
+import { App, InitApplication, log } from '@danielhammerl/nodejs-service-framework';
 import RegistryController from './controller/RegistryController';
 import { proxies } from './util/proxies';
 import { paramCase } from 'change-case';
 import { RequestHandler } from 'express';
 import { loadRegisteredServices } from './util/database';
-import {startServiceMonitoring} from "./util/serviceMonitoring";
+import { startServiceMonitoring } from './util/serviceMonitoring';
+import { registeredServices } from './util/registeredServices';
+import fetch, { Response } from 'node-fetch';
 
 InitApplication({
   serviceName: 'Service Registry',
@@ -15,7 +17,30 @@ InitApplication({
     startServiceMonitoring();
 
     app.use('/register', RegistryController);
-    app.use('*', function (req, res, next) {
+    app.use('/health', (req, res) => {
+      const results: Record<string, Promise<Response>> = {};
+
+      for (const [key, value] of registeredServices) {
+        results[key] = fetch(`http://localhost:${value.port}/health`);
+      }
+
+      Promise.all(Object.values(results)).then((values) => {
+        let healthy = true;
+        const result = values.map((value, index) => {
+          const health = value?.status === 200;
+          if (!health) {
+            healthy = false;
+          }
+          return {
+            service: Object.keys(results)[index],
+            health: health ? 'OK' : 'NOK',
+          };
+        });
+        return res.status(healthy ? 200 : 500).json(result);
+      });
+    });
+
+    app.use('*', (req, res, next) => {
       let thisProxy: RequestHandler | null = null;
 
       proxies.forEach((value, key) => {
