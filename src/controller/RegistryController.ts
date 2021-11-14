@@ -18,7 +18,7 @@ router.post('', (req, res) => {
         serviceData: req.body,
       },
     });
-    return res.json({}).status(200);
+    return res.json({ connected: true }).status(200);
   } else {
     log(
       'error',
