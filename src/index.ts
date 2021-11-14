@@ -3,12 +3,17 @@ import RegistryController from './controller/RegistryController';
 import { proxies } from './util/proxies';
 import { paramCase } from 'change-case';
 import { RequestHandler } from 'express';
+import { loadRegisteredServices } from './util/database';
+import {startServiceMonitoring} from "./util/serviceMonitoring";
 
 InitApplication({
   serviceName: 'Service Registry',
   connectToServiceRegistry: false,
   // eslint-disable-next-line require-await
   beforeStartMethod: async (app: App): Promise<void> => {
+    await loadRegisteredServices();
+    startServiceMonitoring();
+
     app.use('/register', RegistryController);
     app.use('*', function (req, res, next) {
       let thisProxy: RequestHandler | null = null;

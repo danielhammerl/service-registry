@@ -1,0 +1,10 @@
+{
+  "logging": {
+    "transports": [
+      {
+        "type": "console",
+        "level": "debug"
+      }
+    ]
+  }
+}
