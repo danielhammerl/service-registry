@@ -18,13 +18,17 @@ router.post('', (req, res) => {
         serviceData: req.body,
       },
     });
-    return res.sendStatus(200);
+    return res.json({}).status(200);
   } else {
     log(
       'error',
       `Service with name ${req.body.applicationName} tries to register but there is already a service called this`
     );
-    return res.sendStatus(400);
+    return res
+      .json({
+        error: `Service with name ${req.body.applicationName} tries to register but there is already a service called this`,
+      })
+      .status(400);
   }
 });
 
