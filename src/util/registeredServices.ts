@@ -22,7 +22,7 @@ export const unregisterService = (name: ServiceRegistryData['applicationName']):
 };
 
 export const registerService = (data: ServiceRegistryData): boolean => {
-  if (!isServiceRegistered(data.applicationName)) {
+  if (isServiceRegistered(data.applicationName)) {
     return false;
   } else {
     registeredServices.push(data);
