@@ -11,13 +11,14 @@ import fetch, { Response } from 'node-fetch';
 InitApplication({
   serviceName: 'Service Registry',
   connectToServiceRegistry: false,
+  hasHealthEndpoint: false,
   // eslint-disable-next-line require-await
   beforeStartMethod: async (app: App): Promise<void> => {
     await loadRegisteredServices();
     startServiceMonitoring();
 
     app.use('/register', RegistryController);
-    app.use('/health', (req, res) => {
+    app.get('/health', (req, res) => {
       const results: Record<string, Promise<Response>> = {};
 
       for (const [key, value] of registeredServices) {
