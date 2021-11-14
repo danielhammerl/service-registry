@@ -1,4 +1,4 @@
-import { App, InitApplication, log } from '@danielhammerl/nodejs-service-framework';
+import { App, InitApplication } from '@danielhammerl/nodejs-service-framework';
 import RegistryController from './controller/RegistryController';
 import { proxies } from './util/proxies';
 import { paramCase } from 'change-case';

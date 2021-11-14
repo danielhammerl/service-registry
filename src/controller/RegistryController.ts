@@ -1,5 +1,5 @@
 import express from 'express';
-import { addService, registeredServices, RegisteredServiceShape } from '../util/registeredServices';
+import { addService, RegisteredServiceShape } from '../util/registeredServices';
 import { log, ValidationException } from '@danielhammerl/nodejs-service-framework';
 import { saveRegisteredServices } from '../util/database';
 
