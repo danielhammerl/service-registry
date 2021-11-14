@@ -1,11 +1,15 @@
 import express from 'express';
 import { addService, RegisteredServiceShape } from '../util/registeredServices';
-import { log, ValidationException } from '@danielhammerl/nodejs-service-framework';
+import { log, NotFoundException, ValidationException } from '@danielhammerl/nodejs-service-framework';
 import { saveRegisteredServices } from '../util/database';
 
 const router = express.Router();
 
 router.post('', (req, res) => {
+  if (req.socket.remoteAddress !== '127.0.0.1') {
+    throw new NotFoundException();
+  }
+
   log('info', 'Some service tries to register...');
   try {
     RegisteredServiceShape.validateSync(req.body);
