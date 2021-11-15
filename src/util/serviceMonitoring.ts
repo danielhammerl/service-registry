@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 import { log } from '@danielhammerl/nodejs-service-framework';
 import { registeredServices } from './registeredServices';
-import { saveRegisteredServices } from './database';
 
 const monitoringResult: Record<string, number> = {};
 

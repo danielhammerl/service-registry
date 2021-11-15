@@ -1,6 +1,6 @@
 import express from 'express';
 import { addService, RegisteredServiceShape } from '../util/registeredServices';
-import { getConfig, HttpException, log, ValidationException } from '@danielhammerl/nodejs-service-framework';
+import { getConfig, log, ValidationException } from '@danielhammerl/nodejs-service-framework';
 import { saveRegisteredServices } from '../util/database';
 
 const router = express.Router();
