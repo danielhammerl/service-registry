@@ -23,7 +23,11 @@ InitApplication({
       const keys: string[] = [];
 
       for (const [key, value] of registeredServices) {
-        results.push(fetch(`http://localhost:${value.port}/health`));
+        results.push(
+          fetch(`http://localhost:${value.port}/health`)
+            .then((result) => result)
+            .catch(() => null)
+        );
         keys.push(key);
       }
 
