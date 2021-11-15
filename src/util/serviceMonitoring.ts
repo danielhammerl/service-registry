@@ -29,12 +29,12 @@ const monitorServices = async () => {
         `Service ${value.applicationName} is not reachable! This is the ${monitoringResult[value.applicationName]}. try`
       );
 
-      if (monitoringResult[value.applicationName] === 5) {
+      /*if (monitoringResult[value.applicationName] === 5) {
         monitoringResult[value.applicationName] = 0;
         registeredServices.delete(value.applicationName);
         log('info', `Remove service ${value.applicationName}`);
         saveRegisteredServices();
-      }
+      }*/
     }
   }
 };
