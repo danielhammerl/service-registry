@@ -19,27 +19,23 @@ InitApplication({
 
     app.use('/register', RegistryController);
     app.get('/health', (req, res) => {
-      const results: Record<string, Response | null> = {};
+      const results: Promise<Response | null>[] = [];
+      const keys: string[] = [];
 
       for (const [key, value] of registeredServices) {
-        fetch(`http://localhost:${value.port}/health`)
-          .then((result) => {
-            results[key] = result;
-          })
-          .catch(() => {
-            results[key] = null;
-          });
+        results.push(fetch(`http://localhost:${value.port}/health`));
+        keys.push(key);
       }
 
-      Promise.all(Object.values(results)).then((values) => {
+      Promise.all(results).then((responses) => {
         let healthy = true;
-        const result = values.map((value, index) => {
+        const result = responses.map((value, index) => {
           const health = value?.status === 200;
           if (!health) {
             healthy = false;
           }
           return {
-            service: Object.keys(results)[index],
+            service: keys[index],
             health: health ? 'OK' : 'NOK',
           };
         });
