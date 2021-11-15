@@ -19,10 +19,16 @@ InitApplication({
 
     app.use('/register', RegistryController);
     app.get('/health', (req, res) => {
-      const results: Record<string, Promise<Response>> = {};
+      const results: Record<string, Response | null> = {};
 
       for (const [key, value] of registeredServices) {
-        results[key] = fetch(`http://localhost:${value.port}/health`);
+        fetch(`http://localhost:${value.port}/health`)
+          .then((result) => {
+            results[key] = result;
+          })
+          .catch(() => {
+            results[key] = null;
+          });
       }
 
       Promise.all(Object.values(results)).then((values) => {
