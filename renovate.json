@@ -8,8 +8,15 @@
     ":prConcurrentLimit10",
     "group:monorepos",
     "group:recommended",
-    "workarounds:all",
-    ":preserveSemverRanges"
+    "workarounds:all"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    }
+  ],
+  "ignoreDeps": ["node"],
+  "ignoreTests": true
 }
