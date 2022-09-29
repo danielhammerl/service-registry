@@ -1,11 +1,11 @@
 [Unit]
 Description=Service Registry
+StartLimitBurst=10
 
 [Service]
 TasksMax=infinity
 User=webservices
-RestartSec=90
-StartLimitBurst=5
+RestartSec=30
 Restart=always
 Environment="NODE_ENV=production"
 Type=simple
