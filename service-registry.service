@@ -1,6 +1,7 @@
 [Unit]
 Description=Service Registry
 StartLimitBurst=10
+After=mysql.service
 
 [Service]
 TasksMax=infinity
