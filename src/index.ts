@@ -1,4 +1,4 @@
-import { App, InitApplication } from '@danielhammerl/nodejs-service-framework';
+import {App, InitApplication, log} from '@danielhammerl/nodejs-service-framework';
 import RegistryController from './controller/RegistryController';
 import { proxies } from './util/proxies';
 import { paramCase } from 'change-case';
@@ -48,6 +48,7 @@ InitApplication({
     });
 
     app.use('*', (req, res, next) => {
+      log("debug", "received request in service-registry ...");
       let thisProxy: RequestHandler | null = null;
 
       proxies.forEach((value, key) => {
