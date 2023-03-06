@@ -12,7 +12,7 @@ export const saveRegisteredServices = async () => {
       port: value.port,
     };
   });
-  database.saveData(registeredServices, {});
+  await database.saveData(registeredServices, {});
 };
 
 export const loadRegisteredServices = async () => {
