@@ -5,7 +5,7 @@
     ":semanticPrefixFixDepsChoreOthers",
     ":ignoreModulesAndTests",
     ":prHourlyLimit2",
-    ":prConcurrentLimit10",
+    ":prConcurrentLimitNone",
     "group:monorepos",
     "group:recommended",
     "workarounds:all"
@@ -18,5 +18,21 @@
     }
   ],
   "ignoreDeps": ["node"],
-  "ignoreTests": true
+  "ignoreTests": true,
+  "hostRules": [
+    {
+      "matchHost": "http://dham-raspberry:12345/",
+      "baseUrl": "http://dham-raspberry:12345/",
+      "token": "foobar",
+      "enabled": true,
+      "hostType": "npm"
+    },
+    {
+      "matchHost": "registry.npmjs.org",
+      "enabled": true,
+      "hostType": "npm"
+    }
+  ],
+  "npmrcMerge": true,
+  "npmrc": "@danielhammerl:registry=http://dham-raspberry:12345/"
 }
