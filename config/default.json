@@ -1,0 +1,10 @@
+{
+  "webserver": {
+    "host": "127.0.0.1",
+    "port": 30000
+  },
+  "security": {
+    "noSecretKey": true
+  },
+  "dbFilePath": "/var/tmp/danielhammerl/service-registry"
+}

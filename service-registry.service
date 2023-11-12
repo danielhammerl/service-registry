@@ -1,0 +1,17 @@
+[Unit]
+Description=Service Registry
+StartLimitBurst=10
+After=mysql.service
+
+[Service]
+TasksMax=infinity
+User=www-data
+RestartSec=30
+Restart=always
+Environment="NODE_ENV=production"
+Type=simple
+WorkingDirectory=/usr/local/bin/service-registry
+ExecStart=/usr/bin/node /usr/local/bin/service-registry/index.js
+
+[Install]
+WantedBy=multi-user.target
