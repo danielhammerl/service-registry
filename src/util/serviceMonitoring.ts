@@ -23,7 +23,7 @@ const monitorServices = async () => {
     } else {
       monitoringResult[value.applicationName] = (monitoringResult[value.applicationName] ?? 0) + 1;
       log(
-        'debug',
+        'warning',
         `Service ${value.applicationName} is not reachable! This is the ${monitoringResult[value.applicationName]}. try`
       );
     }
