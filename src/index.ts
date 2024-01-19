@@ -21,7 +21,7 @@ InitApplication({
       const results: Promise<Response | null>[] = [];
       const serviceData: { applicationName: string; id: string }[] = [];
 
-      Object.entries(registeredServices).map(([id, value]) => {
+      Object.entries(registeredServices).map(([, value]) => {
         results.push(
           fetch(`http://localhost:${value.port}/health`)
             .then((result) => result)
