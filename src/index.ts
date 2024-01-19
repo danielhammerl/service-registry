@@ -19,15 +19,15 @@ InitApplication({
     app.use('/register', RegistryController);
     app.get('/health', (req, res) => {
       const results: Promise<Response | null>[] = [];
-      const keys: string[] = [];
+      const serviceData: { applicationName: string; id: string }[] = [];
 
-      Object.entries(registeredServices).map(([key, value]) => {
+      Object.entries(registeredServices).map(([id, value]) => {
         results.push(
           fetch(`http://localhost:${value.port}/health`)
             .then((result) => result)
             .catch(() => null)
         );
-        keys.push(key);
+        serviceData.push({ applicationName: value.applicationName, id: value.id });
       });
 
       Promise.all(results).then((responses) => {
@@ -38,7 +38,8 @@ InitApplication({
             healthy = false;
           }
           return {
-            service: keys[index],
+            service: serviceData[index].applicationName,
+            id: serviceData[index].id,
             health: health ? 'OK' : 'NOK',
           };
         });

@@ -7,5 +7,6 @@
       }
     ]
   },
-  "dbFilePath": "./db"
+  "dbFilePath": "./db",
+  "serviceRegistryPassphrase": "$SERVICE_REGISTRY_PASSPHRASE"
 }
