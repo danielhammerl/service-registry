@@ -1,3 +1,3 @@
 @Library('danielhammerl-pipelines') _
 
-buildNodejsService("service-registry");
+buildNodejsServiceInDocker("service-registry");
