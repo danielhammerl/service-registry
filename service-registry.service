@@ -10,8 +10,8 @@ TasksMax=infinity
 RestartSec=30
 Restart=always
 Environment="NODE_ENV=production"
-TimeoutSec=900
-Type=forking
+TimeoutSec=300
+Type=simple
 ExecStart=/usr/bin/docker run --network="host" --volume=/var/lib/danielhammerl/service-dbs:/var/lib/danielhammerl/service-dbs --env-file /var/lib/danielhammerl/service-env/service-registry.env -i dhammerl-service-registry:latest --name %n
 ExecStop=/usr/bin/docker stop $(/usr/bin/docker ps -q --filter ancestor=dhammerl-service-registry)
 
