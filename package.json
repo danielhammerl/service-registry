@@ -39,7 +39,7 @@
   "devDependencies": {
     "@danielhammerl/eslint-config": "^0.0.12",
     "@danielhammerl/nodejs-service-framework": "^1.2.7",
-    "@types/express": "^4.17.13",
+    "@types/express": "^5.0.0",
     "@types/express-http-proxy": "^1.6.3",
     "@types/lodash": "^4.14.201",
     "@types/lodash.get": "^4.4.9",
