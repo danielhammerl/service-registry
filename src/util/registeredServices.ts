@@ -31,6 +31,8 @@ export const addService = (applicationName: string, port: number) => {
   proxies.set(
     applicationName,
     proxy(`http://localhost:${port}`, {
+      parseReqBody: false,
+      limit: '5mb',
       proxyReqPathResolver: function (req) {
         return req.originalUrl.replace(serverPrefix, '');
       },

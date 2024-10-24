@@ -15,10 +15,12 @@ router.post('', (req, res) => {
       id: req.body?.applicationName ? paramCase(req.body.applicationName) : undefined,
     });
   } catch (e) {
+    log('warning', 'Prevented registering service due to invalid request');
     throw new ValidationException(e as Error);
   }
 
   if (req.body.password !== getConfig('serviceRegistryPassphrase')) {
+    log('warning', 'Prevented registering service due to invalid serviceRegistryPassphrase');
     setTimeout(() => {
       return res.status(403).send();
     }, 5000);
