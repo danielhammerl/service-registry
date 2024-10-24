@@ -49,7 +49,7 @@ InitApplication({
 
     app.use('*', (req, res, next) => {
       log('debug', 'received request in service-registry ...');
-      let thisProxy: RequestHandler | null = null;
+      let thisProxy: ((req: Express.Request) => RequestHandler) | null = null;
 
       proxies.forEach((value, key) => {
         if (req.originalUrl.includes(paramCase(key))) {
@@ -59,7 +59,7 @@ InitApplication({
 
       if (thisProxy) {
         // @ts-expect-error why ???
-        thisProxy(req, res, next);
+        thisProxy(req)(req, res, next);
       } else {
         res.sendStatus(404);
       }

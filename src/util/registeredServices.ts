@@ -22,16 +22,21 @@ export const RegisteredServicesListShape = yup.lazy((obj) =>
 
 export const registeredServices: InferType<typeof RegisteredServicesListShape> = {};
 
+const isMultipartRequest = (req: Express.Request) => {
+  // @ts-expect-error dont find headers?
+  const contentTypeHeader = req.headers['content-type'];
+  return contentTypeHeader && contentTypeHeader.indexOf('multipart') > -1;
+};
+
 export const addService = (applicationName: string, port: number) => {
   const id = paramCase(applicationName);
   registeredServices[id] = { applicationName, port, id };
 
   const serverPrefix = `/${id}`;
 
-  proxies.set(
-    applicationName,
+  proxies.set(applicationName, (req) =>
     proxy(`http://localhost:${port}`, {
-      parseReqBody: false,
+      parseReqBody: !isMultipartRequest(req),
       limit: '5mb',
       proxyReqPathResolver: function (req) {
         return req.originalUrl.replace(serverPrefix, '');
